@@ -1,0 +1,17 @@
+{
+	"name":			"index",
+	"files":		{
+		"index.html": {
+			"title":	"AIStock - Smart Stock Analysis",
+			"filename":	"index.html"
+		}
+	},
+	"template":		"main.html",
+	"dependencies":	[
+		"jquery",
+		"AngularJS",
+		"bootstrap",
+		"highcharts-ng",
+		"api"
+	]
+}
