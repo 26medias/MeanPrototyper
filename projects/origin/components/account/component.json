@@ -1,0 +1,30 @@
+{
+	"name":			"account",
+	"version":		1,
+	"description":	"Account components: registration, login, account settings...",
+	"dependencies": {
+		"api":	"latest"
+	},
+	"install":	{
+		
+	},
+	"client":	{
+		"bower":	{
+			"bootstrap":	"*"
+		}
+	},
+	"server":	{
+		"endpoints":	[
+			"server/user.js"
+		]
+	},
+	"client":	{
+		"bower":	{
+			"jquery":		"latest",
+			"bootstrap":	"latest"
+		},
+		"components":	[
+			"client/registration/form.js"
+		]
+	}
+}

@@ -1,0 +1,12 @@
+{
+	"name": 		"mpr-server",
+	"description": 	"MeanPrototype Repository Server",
+	"version":		"1.0.0",
+	"dependencies": {
+		"mongodb":		"latest",
+		"underscore":	"latest",
+		"express":		"latest",
+		"twig": 		"*"
+	}
+}
+
