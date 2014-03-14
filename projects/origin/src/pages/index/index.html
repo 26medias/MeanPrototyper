@@ -9,7 +9,7 @@
 </div>
 
 <script type="text/javascript">
-	main.controller('mainCtrl', function ($scope) {
+	window.meanEngine.get('app').controller('mainCtrl', function ($scope) {
 		$scope.tracked = {};
 		$(function() {
 			$.apicall({

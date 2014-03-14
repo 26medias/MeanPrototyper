@@ -9,7 +9,7 @@ function dependency(options) {
 	
 	this.file 		= file;
 	this.crypto		= crypto;
-	this.packages		= {};
+	this.packages	= {};
 	this.resolved	= [];
 	this.missing	= [];
 	this.cache		= {};
@@ -36,7 +36,7 @@ function dependency(options) {
 				_.each(files, function(file) {
 					opStack.add(function(p, cb) {
 						var filepath	= path.dirname(p.file);
-						toolset.info(p.file, filepath);
+						
 						scope.file.toObject(p.file, function(json) {
 							if (json === false) {
 								toolset.error(p.file+" is not a valid JSON object.");
@@ -60,6 +60,12 @@ function dependency(options) {
 		}
 	},options);
 }
+dependency.prototype.get = function(componentName) {
+	if (this.packages[componentName]) {
+		return this.packages[componentName];
+	}
+	return false;
+}
 dependency.prototype.map = function(callback) {
 	var scope = this;
 	
@@ -79,7 +85,6 @@ dependency.prototype.map = function(callback) {
 		
 		callback(packages);
 	});
-	
 }
 dependency.prototype.fixPath = function(path, filenames) {
 	var scope = this;
@@ -213,7 +218,6 @@ dependency.prototype.getComponentsFor = function(names, transforms) {
 		return output;
 	}
 }
-
 dependency.prototype.getIncludeData = function(libs) {
 	var i;
 	var j;

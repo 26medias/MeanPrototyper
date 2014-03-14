@@ -1,9 +1,9 @@
 {
-	"name":			"index",
+	"name":			"account",
 	"files":		{
-		"index.html": {
-			"title":	"MeanPrototyper Origin",
-			"filename":	"index.html"
+		"login.html": {
+			"title":	"Login Page",
+			"filename":	"account/login.html"
 		}
 	},
 	"template":		"main.html",

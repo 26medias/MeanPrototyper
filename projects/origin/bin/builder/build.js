@@ -5,6 +5,7 @@ var toolset				= require('toolset');
 var ncp 				= require('ncp').ncp;
 var path 				= require('path');
 var wrench 				= require('wrench');
+var fs 					= require('fs');
 
 var builder = function(options) {
 	var scope = this;
@@ -52,17 +53,22 @@ var builder = function(options) {
 }
 builder.prototype.transform = function(components) {
 	// Group the bower dependencies by name, version
-	components.bowerGroup = _.groupBy(components.bower, function(item) {
+	var grouped = _.groupBy(components.bower, function(item) {
 		return item[0];
 	});
+	components.bowerGroup = [];
+	for (var i in grouped) {
+		components.bowerGroup.push(i);
+	}
+	/*
 	for (var i in components.bowerGroup) {
 		var buffer = [];
 		_.each(components.bowerGroup[i], function(item) {
 			buffer.push(item[1]);
 		});
-		components.bowerGroup[i] = _.uniq(buffer);
+		components.bowerGroup[i] = "latest";//_.uniq(buffer)[0];
 	}
-	
+	*/
 	return components;
 }
 builder.prototype.init = function() {
@@ -97,8 +103,7 @@ builder.prototype.init = function() {
 			var components = scope.transform(scope.dependency.getComponentsFor(["api"], scope.transformMethods));
 			toolset.log("components[api]", components);
 			*/
-			var components = scope.transform(scope.dependency.getComponentsFor(true, scope.transformMethods));
-			toolset.log("components[all]", components);
+			scope.allComponents = scope.transform(scope.dependency.getComponentsFor(true, scope.transformMethods));
 			
 			
 			// Map the bower dependencies
@@ -141,8 +146,18 @@ builder.prototype.build = function() {
 						
 						// Copy the libs
 						ncp(scope.root+scope.settings.src+"/bower_components", scope.root+scope.settings.output+"/public", function() {
-							console.log("Libs copied from ", scope.root+scope.settings.src+"/bower_components", " to ", scope.root+scope.settings.output);
+							console.log("Libs copied from ", scope.root+scope.settings.src+"/bower_components", " to ", scope.root+scope.settings.output+"/public");
 						});
+						// Copy the components
+						ncp(scope.root+scope.settings.components, scope.root+scope.settings.output+"/components", function() {
+							console.log("Components copied from ", scope.root+scope.settings.components, " to ", scope.root+scope.settings.output+"/components");
+						});
+						// Copy the Engine
+						ncp(scope.root+scope.settings.src+'/engine', scope.root+scope.settings.output+"/engine", function() {
+							console.log("Engine copied from ", scope.root+scope.settings.src+'/engine', " to ", scope.root+scope.settings.output+"/engine");
+						});
+						// Copy the JS project file
+						fs.createReadStream(scope.root+scope.settings.src+'/project.js').pipe(fs.createWriteStream(scope.root+scope.settings.output+"/project.js"));
 					});
 				});
 			});
@@ -201,8 +216,40 @@ builder.prototype.buildPage = function(page, callback) {
 					if (p.fileData.dependencies) {
 						pageConf.dependencies = _.union(pageConf.dependencies, p.fileData.dependencies);
 					}
+					
+					if (!pageConf.components) {
+						pageConf.components = [];
+					}
+					if (p.fileData.components) {
+						pageConf.components = _.union(pageConf.components, p.fileData.components);
+					}
+					if (pageConf.components.length > 0) {
+						// Check the bower libs we require for that components
+						var components = scope.transform(scope.dependency.getComponentsFor(pageConf.components, scope.transformMethods));
+						
+						// Push the components' bower dependencies with the other page-specific dependencies
+						pageConf.dependencies = _.union(pageConf.dependencies, components.bowerGroup);
+					}
+					//
+					
 					// Get the libraries
 					var libs = scope.bower_dependency.getFor(pageConf.dependencies);
+					
+					// Inject the engine and the project file
+					scope.pushToLibs('engine/engine.js', libs);
+					scope.pushToLibs('project.js', libs);
+					
+					// Inject the files required by the components, and the autoloads
+					if (scope.allComponents.autoload) {
+						_.each(scope.allComponents.autoload, function(file) {
+							scope.pushToLibs(file, libs);
+						});
+					}
+					if (scope.allComponents.components) {
+						_.each(scope.allComponents.components, function(file) {
+							scope.pushToLibs(file, libs);
+						});
+					}
 					
 					// Inject into the main template and write
 					var filename 	= scope.root+scope.settings.output+"/"+p.fileData.filename;
@@ -242,6 +289,15 @@ builder.prototype.buildPage = function(page, callback) {
 		});
 		
 	});
+}
+builder.prototype.pushToLibs = function(file, libs) {
+	var ext = path.extname(file);
+	if (!libs[ext]) {
+		libs[ext] = [];
+	}
+	libs[ext].push(file);
+	libs[ext] = _.uniq(libs[ext]);
+	return libs;
 }
 builder.prototype.getIncludes = function(files, type, relativepath) {
 	var list 		= files[type];
