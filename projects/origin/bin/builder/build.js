@@ -233,11 +233,26 @@ builder.prototype.buildPage = function(page, callback) {
 					//
 					
 					// Get the libraries
-					var libs = scope.bower_dependency.getFor(pageConf.dependencies);
+					var libs = {};
+					
+					var _libs = scope.bower_dependency.getFor(pageConf.dependencies);
+					
+					for (var i in _libs) {
+						if (libs[i]) {
+							_.each(_libs[i], function(file) {
+								libs[i].push(file);
+							});
+						} else {
+							libs[i] = _libs[i];
+						}
+					}
 					
 					// Inject the engine and the project file
 					scope.pushToLibs('engine/engine.js', libs);
 					scope.pushToLibs('project.js', libs);
+					
+					
+					toolset.log("libs", libs);
 					
 					// Inject the files required by the components, and the autoloads
 					if (scope.allComponents.autoload) {
