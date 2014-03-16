@@ -16,6 +16,15 @@
 			this.setCookie(this._cookiePrefix+name, data, 365);
 		}
 	};
+	meanEngine.prototype.unset = function(name) {
+		if (this.settings[name]) {
+			delete this.settings[name];
+		}
+		if (this.getCookie(this._cookiePrefix+name)) {
+			this.setCookie(this._cookiePrefix+name, null, -1);
+		}
+		return true;
+	};
 	meanEngine.prototype.get = function(name) {
 		if (this.settings[name]) {
 			return this.settings[name];

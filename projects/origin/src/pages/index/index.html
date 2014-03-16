@@ -1,9 +1,17 @@
 <div ng-controller="mainCtrl">
-	Hello, {{user.email}}!
+	<div ng-if="authtoken">
+		Hello, {{user.email}}!
+	</div>
+	<div ng-if="!authtoken">
+		Hey you!<br />
+		You light want to <a href="account/login.html">login</a>.
+	</div>
+	
 </div>
 
 <script type="text/javascript">
 	window.meanEngine.get('app').controller('mainCtrl', function ($scope) {
-		$scope.user = window.meanEngine.get('user');
+		$scope.user 		= window.meanEngine.get('user');
+		$scope.authtoken 	= window.meanEngine.get('authtoken');
 	});
 </script>

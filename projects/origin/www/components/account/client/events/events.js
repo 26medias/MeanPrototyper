@@ -12,9 +12,13 @@
 					window.meanEngine.set('user', 		response.user, true);
 					window.meanEngine.set('authtoken', 	response.authtoken, true);
 					
+					response.connected = response.valid;
+					
 					window.Arbiter.inform("onLogin", response, true);	// Retroactive!
 				}
 			}
 		});
+	} else {
+		window.Arbiter.inform("onLogin", {connected:false}, true);
 	}
 })();

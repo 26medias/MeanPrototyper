@@ -24,19 +24,21 @@ window.meanEngine.get('app').controller('headerCtrl', function ($scope) {
 	
 	// On login (provided by the 'account' component. Event using Arbiter.
 	window.Arbiter.subscribe("onLogin", function(data) {
-		// User is logged in, we update the menu
-		$scope.header.menuRight = [{
-			label:	'Logout',
-			url:	'account/logout.html'
-		},{
-			label:	'Account',
-			items:	[{
-				label:	'Profile',
-				url:	'account/profile.html'
+		if (data.connected) {
+			// User is logged in, we update the menu
+			$scope.header.menuRight = [{
+				label:	'Logout',
+				url:	'account/logout.html'
 			},{
-				label:	'Edit',
-				url:	'account/edit.html'
-			}]
-		}];
+				label:	'Account',
+				items:	[{
+					label:	'Profile',
+					url:	'account/profile.html'
+				},{
+					label:	'Edit',
+					url:	'account/edit.html'
+				}]
+			}];
+		}
 	});
 });

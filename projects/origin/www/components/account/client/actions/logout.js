@@ -4,7 +4,7 @@ window.meanEngine.get('app').directive('logoutLink', function() {
 		element.click(function(e) {
 			console.log("click",this);
 			e.preventDefault();
-			window.meanEngine.service("api").cookie('authtoken', '', -1); // remove the cookie
+			window.meanEngine.unset('authtoken'); // remove the cookie/data
 			
 			// Go to the dashboard
 			window.meanEngine.service("api").location('index.html');
