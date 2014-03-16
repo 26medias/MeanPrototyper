@@ -5,6 +5,10 @@
 	"dependencies": {
 		"mongodb":		"latest",
 		"underscore":	"latest",
+		"request":		"latest",
+		"facebook-api":	"latest",
+		"twig": 		"*",
+		"moment":		"latest",
 		"express":		"latest",
 		"twig": 		"*"
 	}

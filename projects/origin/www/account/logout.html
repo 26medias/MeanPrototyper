@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="shortcut icon" href="favicon.png">
+		
+		<base href="../">
+		
+		<title>Logout</title>
+		
+		<script src="public/bootstrap-timepicker/spec/js/libs/jquery/jquery.js"></script>
+<script src="public/bootstrap/./dist/js/bootstrap.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>
+<script src="public/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="public/autotype/index.js"></script>
+<script src="public/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+<script src="public/bootstrap-select/bootstrap-select.js"></script>
+<script src="public/angular-strap/./dist/angular-strap.min.js"></script>
+<script src="public/underscore/underscore-min.js"></script>
+<script src="public/json2/json2.js"></script>
+<script src="public/FormJS/core.js"></script>
+<script src="public/FormJS/modules/bootstrap.js"></script>
+<script src="public/FormJS/modules/accordion.js"></script>
+<script src="public/FormJS/modules/checkbox.js"></script>
+<script src="public/FormJS/modules/radio.js"></script>
+<script src="public/FormJS/modules/varchar.js"></script>
+<script src="engine/Arbiter.js"></script>
+<script src="engine/engine.js"></script>
+<script src="project.js"></script>
+<script src="components/api/client/api.js"></script>
+<script src="components/ui/header/header.js"></script>
+<script src="components/test/test1.js"></script>
+<script src="components/test/test2.js"></script>
+<script src="components/formjs/formjs.js"></script>
+<script src="components/account/client/events/events.js"></script>
+<script src="components/account/client/forms/register.js"></script>
+<script src="components/account/client/forms/login.js"></script>
+<script src="components/account/client/actions/logout.js"></script>
+		<link href="public/bootstrap/./dist/css/bootstrap.css" rel="stylesheet">
+<link href="public/bootstrap-datepicker/css/datepicker.css" rel="stylesheet">
+<link href="public/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet">
+<link href="public/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet">
+<link href="public/bootstrap-select/bootstrap-select.css" rel="stylesheet">
+<link href="components/ui/css/theme.css" rel="stylesheet">
+		
+	</head>
+	<body ng-app="main">
+		
+		<div id="wrap">
+			<div ng-controller="headerCtrl">
+				<div ui-header></div>
+			</div>
+			
+			<!-- Begin page content -->
+			<div class="container" style="padding-top: 80px;">
+				<div ng-controller="mainCtrl">
+	<div class="panel panel-default">
+		<div class="panel-heading">Logout</div>
+		<div class="panel-body">
+			Are you sure you want to logout?<br />
+			<div class="btn btn-danger" logout-link>Logout</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	window.meanEngine.get('app').controller('mainCtrl', function ($scope) {
+		
+	});
+</script>
+
+			</div>
+		</div>
+		
+		<div id="footer">
+			<div class="container">
+				<p class="text-muted">&copy; Twenty-Six Medias, Inc 2014</p>
+			</div>
+		</div>
+		
+	</body>
+</html>

@@ -1,0 +1,18 @@
+{
+	"name":			"test",
+	"files":		{
+		"test.html": {
+			"title":	"Login Page",
+			"filename":	"test/test.html"
+		}
+	},
+	"template":		"main.html",
+	"components":	[
+		"test"
+	],
+	"dependencies":	[
+		"jquery",
+		"AngularJS",
+		"angular-strap"
+	]
+}

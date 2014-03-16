@@ -1,8 +1,5 @@
-$(function() {
-	
-	$.extend({
-		
-		// JSONP API Call function
+window.meanEngine.service("api", function() {
+	return {
 		apicall:	function(options) {
 			/*
 			method,
@@ -12,7 +9,7 @@ $(function() {
 				method:		"",
 				params:		{},
 				callback:	function(data) {},
-				onFail:		function(msg) {console.error(msg);}
+				onFail:		function(msg) {console.log(msg);}
 			},options);
 			
 			var split 	= options.method.split(".");
@@ -21,7 +18,7 @@ $(function() {
 				method:		split[1]
 			};
 			
-			//console.group("JSONP :: "+api.endpoint+"/"+api.method);
+			console.log("JSONP :: "+api.endpoint+"/"+api.method);
 			//console.info("Parameters: ", options.params);
 			
 			//console.log("url:",window.meanEngine.get('api').protocol+"://"+window.meanEngine.get('api').hostname+':'+window.meanEngine.get('api').port+'/'+api.endpoint+"/"+api.method+"/jsonp");
@@ -81,6 +78,26 @@ $(function() {
 			}
 			
 			document.cookie = name+"="+value+expires+"; path=/;"; //  domain=.example.com
+		},
+		
+		getCookie:	function(name) {
+			var nameEQ = name + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0;i < ca.length;i++) {
+				var c = ca[i];
+				while (c.charAt(0)==' ') c = c.substring(1,c.length);
+				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+			}
+			return null;
+		},
+		
+		location:		function(page) {
+			//console.trace();
+			document.location = page;
+		},
+		
+		refresh:		function(page) {
+			document.location = document.location;
 		},
 		
 		refresh:		function(page) {
@@ -159,5 +176,5 @@ $(function() {
 			
 			return str+suffix;
 		}
-	});
+	}
 });

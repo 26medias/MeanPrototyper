@@ -11,7 +11,7 @@
 			"bootstrap":	"latest",
 			"FormJS":		"latest"
 		},
-		"components":	[
+		"files":	[
 			"formjs.js"
 		]
 	}

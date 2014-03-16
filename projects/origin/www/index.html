@@ -12,9 +12,14 @@
 		
 		<title>MeanPrototyper Origin</title>
 		
-		<script src="public/jquery/dist/jquery.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>
+		<script src="public/bootstrap-timepicker/spec/js/libs/jquery/jquery.js"></script>
 <script src="public/bootstrap/./dist/js/bootstrap.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>
+<script src="public/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="public/autotype/index.js"></script>
+<script src="public/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+<script src="public/bootstrap-select/bootstrap-select.js"></script>
+<script src="public/angular-strap/./dist/angular-strap.min.js"></script>
 <script src="public/underscore/underscore-min.js"></script>
 <script src="public/json2/json2.js"></script>
 <script src="public/FormJS/core.js"></script>
@@ -23,82 +28,42 @@
 <script src="public/FormJS/modules/checkbox.js"></script>
 <script src="public/FormJS/modules/radio.js"></script>
 <script src="public/FormJS/modules/varchar.js"></script>
+<script src="engine/Arbiter.js"></script>
 <script src="engine/engine.js"></script>
 <script src="project.js"></script>
 <script src="components/api/client/api.js"></script>
+<script src="components/ui/header/header.js"></script>
+<script src="components/test/test1.js"></script>
+<script src="components/test/test2.js"></script>
 <script src="components/formjs/formjs.js"></script>
-<script src="components/account/client/registration/form.js"></script>
+<script src="components/account/client/events/events.js"></script>
+<script src="components/account/client/forms/register.js"></script>
+<script src="components/account/client/forms/login.js"></script>
+<script src="components/account/client/actions/logout.js"></script>
 		<link href="public/bootstrap/./dist/css/bootstrap.css" rel="stylesheet">
+<link href="public/bootstrap-datepicker/css/datepicker.css" rel="stylesheet">
+<link href="public/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet">
+<link href="public/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet">
+<link href="public/bootstrap-select/bootstrap-select.css" rel="stylesheet">
+<link href="components/ui/css/theme.css" rel="stylesheet">
 		
 	</head>
 	<body ng-app="main">
 		
 		<div id="wrap">
-		
-			<!-- Fixed navbar -->
-			<div class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="headerCtrl">
-				<div class="container">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="#">AIStock</a>
-					</div>
-					<div class="collapse navbar-collapse">
-						<ul class="nav navbar-nav">
-							
-							<li class="dropdown ">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Charts <b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li><a href="stock/chart.html?symbol={{symbol}}" ng-repeat="(symbol, keywords) in tracked">${{symbol}}</a></li>
-								</ul>
-							</li>
-							
-							<li class="dropdown ">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Relevance Training <b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li><a href="train/relevance.html?symbol={{symbol}}" ng-repeat="(symbol, keywords) in tracked">${{symbol}}</a></li>
-								</ul>
-							</li>
-							<li class="dropdown ">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Sentiment Training <b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li><a href="train/sentiment.html?symbol={{symbol}}" ng-repeat="(symbol, keywords) in tracked">${{symbol}}</a></li>
-								</ul>
-							</li>
-							<li><a href="mailto:julien@twenty-six-medias.com">Contact</a></li>
-						</ul>
-					</div><!--/.nav-collapse -->
-				</div>
+			<div ng-controller="headerCtrl">
+				<div ui-header></div>
 			</div>
 			
 			<!-- Begin page content -->
 			<div class="container" style="padding-top: 80px;">
 				<div ng-controller="mainCtrl">
-	<h3>Tracking data</h3>
-	<div class="panel panel-default" ng-repeat="(symbol, keywords) in tracked">
-		<div class="panel-heading">{{symbol}}</div>
-		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="keyword in keywords">{{keyword}}</li>
-		</ul>
-	</div>
+	Hello, {{user.email}}!
 </div>
 
 <script type="text/javascript">
 	window.meanEngine.get('app').controller('mainCtrl', function ($scope) {
-		$scope.tracked = {};
-		$(function() {
-			$.apicall({
-				method:		"stock.tracked",
-				callback:	function(response) {
-					$scope.tracked = response;
-					$scope.$apply();
-				}
-			});
-		});
+		$scope.user = window.meanEngine.get('user');
 	});
 </script>
 

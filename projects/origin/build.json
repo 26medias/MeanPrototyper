@@ -1,5 +1,6 @@
 {
 	"output":		"www",
 	"src":			"src",
+	"server":		"bin/server",
 	"components":	"components"
 }

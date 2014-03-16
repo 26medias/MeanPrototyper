@@ -8,11 +8,12 @@
 	},
 	"template":		"main.html",
 	"components":	[
-		"account"
+		"account",
+		"ui"
 	],
 	"dependencies":	[
 		"jquery",
 		"AngularJS",
-		"bootstrap"
+		"angular-strap"
 	]
 }

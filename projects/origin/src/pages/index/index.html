@@ -1,24 +1,9 @@
 <div ng-controller="mainCtrl">
-	<h3>Tracking data</h3>
-	<div class="panel panel-default" ng-repeat="(symbol, keywords) in tracked">
-		<div class="panel-heading">{{symbol}}</div>
-		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="keyword in keywords">{{keyword}}</li>
-		</ul>
-	</div>
+	Hello, {{user.email}}!
 </div>
 
 <script type="text/javascript">
 	window.meanEngine.get('app').controller('mainCtrl', function ($scope) {
-		$scope.tracked = {};
-		$(function() {
-			$.apicall({
-				method:		"stock.tracked",
-				callback:	function(response) {
-					$scope.tracked = response;
-					$scope.$apply();
-				}
-			});
-		});
+		$scope.user = window.meanEngine.get('user');
 	});
 </script>

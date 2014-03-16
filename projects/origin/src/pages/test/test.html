@@ -1,0 +1,17 @@
+<div class="row" ng-controller="mainCtrl">
+	<div class="col-md-6">
+		<div test1></div>
+	</div>
+	<div class="col-md-6">
+		<div test2></div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	window.meanEngine.get('app').controller('mainCtrl', function ($scope) {
+		$scope.settings = {
+			hello:	'#0',
+			test:	'working!'
+		};
+	});
+</script>

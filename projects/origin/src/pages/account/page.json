@@ -4,6 +4,10 @@
 		"login.html": {
 			"title":	"Login Page",
 			"filename":	"account/login.html"
+		},
+		"logout.html": {
+			"title":	"Logout",
+			"filename":	"account/logout.html"
 		}
 	},
 	"template":		"main.html",
@@ -13,6 +17,6 @@
 	"dependencies":	[
 		"jquery",
 		"AngularJS",
-		"bootstrap"
+		"angular-strap"
 	]
 }

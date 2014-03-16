@@ -19,8 +19,11 @@
 			"jquery":		"latest",
 			"bootstrap":	"latest"
 		},
-		"components":	[
-			"client/registration/form.js"
+		"files":	[
+			"client/events/events.js",
+			"client/forms/register.js",
+			"client/forms/login.js",
+			"client/actions/logout.js"
 		]
 	}
 }

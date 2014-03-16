@@ -27,8 +27,8 @@ var builder = function(options) {
 			return false;
 		},
 		components:	function(componentData) {
-			if (componentData.data && componentData.data.client && componentData.data.client.components) {
-				return scope.dependency.fixPath(componentData.path, componentData.data.client.components);
+			if (componentData.data && componentData.data.client && componentData.data.client.files) {
+				return scope.dependency.fixPath(componentData.path, componentData.data.client.files);
 			}
 			return false;
 		},
@@ -104,21 +104,41 @@ builder.prototype.init = function() {
 			toolset.log("components[api]", components);
 			*/
 			scope.allComponents = scope.transform(scope.dependency.getComponentsFor(true, scope.transformMethods));
+			//toolset.log("scope.allComponents",scope.allComponents);
 			
-			
-			// Map the bower dependencies
-			scope.bower_dependency.map(function(packages) {
-				//toolset.log("packages", packages);
+			// Move the API files
+			scope.moveAPIfiles(function() {
 				
-				// Verify we have no missing components
-				scope.bower_dependency.verify(function(name) {
-					toolset.error("/!\\ Missing bower packages", name);
+				// Map the bower dependencies
+				scope.bower_dependency.map(function(packages) {
+					//toolset.log("packages", packages);
+					
+					// Verify we have no missing components
+					scope.bower_dependency.verify(function(name) {
+						toolset.error("/!\\ Missing bower packages", name);
+					});
+					
+					scope.build();
 				});
 				
-				scope.build();
 			});
+			
 		});
 	});
+}
+builder.prototype.moveAPIfiles = function(callback) {
+	var scope = this;
+	_.each(this.allComponents.endpoints, function(file) {
+		var endPath = scope.root+scope.settings.server+"/api/endpoints/"+path.basename(file);
+		path.exists(endPath, function(exists) {
+			if (!exists) {
+				fs.createReadStream(scope.root+file).pipe(fs.createWriteStream(endPath));
+			} else {
+				console.log("API Endpoint "+endPath+" already exists.");
+			}
+		});
+	});
+	callback();
 }
 builder.prototype.build = function() {
 	var scope 	= this;
@@ -248,11 +268,10 @@ builder.prototype.buildPage = function(page, callback) {
 					}
 					
 					// Inject the engine and the project file
+					scope.pushToLibs('engine/Arbiter.js', libs);
 					scope.pushToLibs('engine/engine.js', libs);
 					scope.pushToLibs('project.js', libs);
 					
-					
-					toolset.log("libs", libs);
 					
 					// Inject the files required by the components, and the autoloads
 					if (scope.allComponents.autoload) {
