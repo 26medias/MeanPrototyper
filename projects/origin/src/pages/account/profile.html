@@ -1,0 +1,15 @@
+<div class="jumbotron" ng-controller="mainCtrl">
+	<h1 ng-if="user.firstname">{{user.firstname}} {{user.lastname}}</h1>
+	<h1 ng-if="!user.firstname">Anonymous user</h1>
+	<p>Registered on {{user.register_date|date}}.</p>
+	<p><a class="btn btn-primary btn-lg" role="button" href="mailto:{{user.email}}">Email me!</a></p>
+</div>
+
+
+<script type="text/javascript">
+	window.meanEngine.get('app').controller('mainCtrl', function ($scope) {
+		window.Arbiter.subscribe("onLogin", function(data) {
+			$scope.user = window.meanEngine.get('user');
+		});
+	});
+</script>

@@ -13,6 +13,9 @@
 			this.field.attr('placeholder',this.data.placeholder);
 		}
 		this.field.addClass("form-control");
+		if (this.data.value) {
+			this.val(this.data.value);
+		}
 	}
 	// Validate the input
 	component.prototype.validate = function(val) {

@@ -1,6 +1,17 @@
 window.meanEngine.get('app').directive('accountRegisterForm', function($compile) {
 	var component = function(scope, element, attrs) {
 		scope.settings = {
+			form:			[{
+				name:			"email",
+				type:			"varchar",
+				label:			"Email",
+				required:		true
+			},{
+				name:			"password",
+				type:			"varchar",
+				label:			"Password",
+				required:		true
+			}],
 			container:		element,
 			submitButton:	element.find('[data-id="submit"]'),
 			onSubmit:		function(data, jform) {	// Executed when the entire form validates.

@@ -706,60 +706,6 @@ api.prototype.init = function(Gamify, callback){
 		
 		
 		
-		
-		resetTest: {
-			require:		[],
-			params:			{},
-			auth:			false,
-			description:	"Reset the users, create a new set",
-			status:			'deprecated',
-			version:		1.0,
-			callback:		function(params, req, res, callback) {
-				/*
-				var userQuery = {
-					email:			'hello@world.com',
-					password:		false,	// no password!
-					firstname:		'hello',
-					lastname:		'world',
-					fbfriends:		[]
-				};
-				
-				scope.Gamify.api.execute("user","create", {
-					data:			userQuery
-				}, function(response) {
-					callback(response);
-				});*/
-				callback(Gamify.api.errorResponse("Deprecated."));
-			}	
-		},
-		
-		
-		getSession: {
-			require:		['uid'],
-			params:			{},
-			auth:			false,
-			description:	"Reset the users, create a new set",
-			status:			'deprecated',
-			version:		1.0,
-			callback:		function(params, req, res, callback) {
-				//Gamify.log("Gettsing session for: ", params);
-				/*
-				scope.Gamify.api.execute("user","getAuthToken", {
-					user: {
-						uid:		params.uid
-					}
-				}, function(response) {
-					//Gamify.log("Login: ", response);
-					// Returns a session.
-					callback(response);
-				});*/
-				callback(Gamify.api.errorResponse("Deprecated."));
-			}	
-		},
-		
-		
-		
-		
 		find: {
 			require:		[],
 			params:			{query:"MongoDB query"},
@@ -839,7 +785,6 @@ api.prototype.init = function(Gamify, callback){
 						if (!response[0].avatar) {
 							response[0].avatar = "images/avatar-default.png";
 						}
-						Gamify.data.cdn.processAvatarUrls(response);
 						callback(response[0]);
 					}
 				});
@@ -889,7 +834,6 @@ api.prototype.init = function(Gamify, callback){
 							phone:		!(!response.data[i].phone)
 						};
 					}
-					Gamify.data.cdn.processAvatarUrls(response.data);
 					
 					if (req && req.path) {
 						response.next		= response.pagination.current >= response.pagination.pages ? false : req.path+"?"+qs.stringify(nextParam);
@@ -931,7 +875,6 @@ api.prototype.init = function(Gamify, callback){
 					var prevParam		= _.extend({},params);
 					prevParam.page		= response.pagination.current-1;
 					
-					Gamify.data.cdn.processAvatarUrls(response.data);
 					
 					response.next		= response.pagination.current >= response.pagination.pages ? false : req.path+"?"+qs.stringify(nextParam);
 					response.previous	= response.pagination.current <= 1 ? false : req.path+"?"+qs.stringify(prevParam);

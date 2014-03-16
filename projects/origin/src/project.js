@@ -27,16 +27,19 @@ window.meanEngine.get('app').controller('headerCtrl', function ($scope) {
 		if (data.connected) {
 			// User is logged in, we update the menu
 			$scope.header.menuRight = [{
-				label:	'Logout',
-				url:	'account/logout.html'
+				label:	data.user.firstname?data.user.firstname:data.user.email,
+				url:	'account/profile.html'
 			},{
 				label:	'Account',
 				items:	[{
 					label:	'Profile',
 					url:	'account/profile.html'
 				},{
-					label:	'Edit',
+					label:	'Update my account',
 					url:	'account/edit.html'
+				},{
+					label:	'Logout',
+					url:	'account/logout.html'
 				}]
 			}];
 		}

@@ -8,6 +8,14 @@
 		"logout.html": {
 			"title":	"Logout",
 			"filename":	"account/logout.html"
+		},
+		"edit.html": {
+			"title":	"Edit your account",
+			"filename":	"account/edit.html"
+		},
+		"profile.html": {
+			"title":	"My Profile",
+			"filename":	"account/profile.html"
 		}
 	},
 	"template":		"main.html",

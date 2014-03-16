@@ -23,6 +23,7 @@
 			"client/events/events.js",
 			"client/forms/register.js",
 			"client/forms/login.js",
+			"client/forms/edit.js",
 			"client/actions/logout.js"
 		]
 	}
